@@ -1,5 +1,9 @@
 from llm_eval_lab.models import PairwiseAnnotation
-from llm_eval_lab.preferences import disagreement_by_prompt, export_preference_records, preference_summary
+from llm_eval_lab.preferences import (
+    disagreement_by_prompt,
+    export_preference_records,
+    preference_summary,
+)
 
 
 def sample(preference: str, reviewer: str = "r1") -> PairwiseAnnotation:
