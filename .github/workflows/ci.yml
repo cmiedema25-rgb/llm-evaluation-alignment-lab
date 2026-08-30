@@ -3,6 +3,7 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,16 +14,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
       - name: Install package
         run: python -m pip install -e ".[dev]"
       - name: Lint
-        run: ruff check .
+        run: |
+          ruff check .
+          ruff format --check .
       - name: Test
-        run: pytest -q
+        run: pytest --cov=llm_eval_lab --cov-report=term-missing --cov-fail-under=85 -q
+      - name: Retained benchmark
+        run: >-
+          llm-eval-lab benchmark data/evaluation_cases.jsonl
+          --preferences data/sample_preferences.jsonl
+          --report /tmp/benchmark-report.json

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-evaluation-alignment-lab"
-version = "0.1.0"
+version = "1.0.0"
 description = "Deterministic LLM evaluation, prompt regression, and preference-data tooling"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -14,8 +14,9 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
-  "pytest>=8.0",
-  "ruff>=0.6",
+  "pytest==9.1.1",
+  "pytest-cov==7.1.0",
+  "ruff==0.16.5",
 ]
 finetune = [
   "datasets>=2.20",
@@ -31,6 +32,7 @@ llm-eval-lab = "llm_eval_lab.cli:main"
 where = ["src"]
 
 [tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
 pythonpath = ["src"]
 testpaths = ["tests"]
 

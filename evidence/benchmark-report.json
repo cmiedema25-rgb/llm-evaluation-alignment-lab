@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0",
+  "passed": true,
+  "summary": {
+    "evaluation_cases": 10,
+    "rubric_preference_wins": 10,
+    "rubric_preference_win_rate": 1.0,
+    "prompt_checks_passed": 10,
+    "prompt_check_pass_rate": 1.0,
+    "preference_annotations": 3,
+    "exported_preference_records": 3,
+    "reviewer_disagreement_prompts": 0
+  },
+  "preference_summary": {
+    "total": 3,
+    "a_win_rate": 1.0,
+    "b_win_rate": 0.0,
+    "tie_rate": 0.0
+  },
+  "results": [
+    {
+      "case_id": "deterministic-tests",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.85,
+      "rejected_aggregate": 0.5,
+      "aggregate_margin": 0.35,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "pairwise-labels",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.825,
+      "rejected_aggregate": 0.5,
+      "aggregate_margin": 0.325,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "prompt-regression",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.7812,
+      "rejected_aggregate": 0.5,
+      "aggregate_margin": 0.2812,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "safe-access",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.65,
+      "rejected_aggregate": 0.44,
+      "aggregate_margin": 0.21,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "concise-evaluation",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.75,
+      "rejected_aggregate": 0.4654,
+      "aggregate_margin": 0.2846,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "lora-scope",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.825,
+      "rejected_aggregate": 0.5875,
+      "aggregate_margin": 0.2375,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "annotation-quality",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.9,
+      "rejected_aggregate": 0.6,
+      "aggregate_margin": 0.3,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "reviewer-disagreement",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.7667,
+      "rejected_aggregate": 0.5,
+      "aggregate_margin": 0.2667,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "preference-export",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.8,
+      "rejected_aggregate": 0.55,
+      "aggregate_margin": 0.25,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "evaluation-process",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.6937,
+      "rejected_aggregate": 0.44,
+      "aggregate_margin": 0.2537,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    }
+  ],
+  "limitations": "This deterministic benchmark uses ten authored regression cases and three sample annotations. It validates the evaluation pipeline, not the quality of a production model, human-label agreement at scale, or customer ROI."
+}

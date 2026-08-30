@@ -76,12 +76,7 @@ def evaluate_response(
         notes.append("response is very short")
     clarity = _clamp(clarity)
 
-    aggregate = (
-        0.35 * relevance
-        + 0.30 * instruction_following
-        + 0.20 * safety
-        + 0.15 * clarity
-    )
+    aggregate = 0.35 * relevance + 0.30 * instruction_following + 0.20 * safety + 0.15 * clarity
 
     return EvaluationResult(
         relevance=round(relevance, 4),
