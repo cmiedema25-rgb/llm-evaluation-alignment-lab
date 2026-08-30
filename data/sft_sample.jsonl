@@ -1,0 +1,2 @@
+{"text":"Instruction: Explain prompt regression testing.\nResponse: Prompt regression testing checks that revised prompts continue to satisfy defined behavioral requirements such as required concepts, prohibited content, and output-length constraints."}
+{"text":"Instruction: Explain pairwise preference data.\nResponse: Pairwise preference data contains two candidate responses to the same prompt plus a judgment indicating which response is preferred, providing chosen and rejected examples for alignment experiments."}
