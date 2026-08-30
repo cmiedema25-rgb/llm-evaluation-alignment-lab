@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-evaluation-alignment-lab"
+version = "0.1.0"
+description = "Deterministic LLM evaluation, prompt regression, and preference-data tooling"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Charles Miedema"}]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.6",
+]
+finetune = [
+  "datasets>=2.20",
+  "peft>=0.12",
+  "transformers>=4.44",
+  "torch>=2.2",
+]
+
+[project.scripts]
+llm-eval-lab = "llm_eval_lab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
