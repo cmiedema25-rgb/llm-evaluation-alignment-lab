@@ -1,8 +1,8 @@
 # Verification Record
 
-Date: 2026-08-30 UTC
+Date: 2026-09-05 UTC
 
-Environment: CPython 3.12 on Linux.
+Environment: CPython 3.13 on Linux.
 
 ## Commands
 
@@ -11,6 +11,7 @@ python -m pip install -e '.[dev]'
 ruff check .
 ruff format --check .
 pytest --cov=llm_eval_lab --cov-report=term-missing --cov-fail-under=85 -q
+llm-eval-lab check-annotations data/sample_preferences.jsonl
 llm-eval-lab benchmark data/evaluation_cases.jsonl \
   --preferences data/sample_preferences.jsonl \
   --report evidence/benchmark-report.json
@@ -20,13 +21,14 @@ llm-eval-lab benchmark data/evaluation_cases.jsonl \
 
 | Check | Result |
 | --- | ---: |
-| Automated tests | 11 passed |
-| Python statement coverage | 89.23% (85% floor) |
-| Authored evaluation pairs | 10 |
-| Intended-response rubric wins | 10/10 |
-| Prompt requirement checks | 10/10 passed |
-| Pairwise annotations validated | 3 |
-| Chosen/rejected records exported | 3/3 |
+| Automated tests | 15 passed |
+| Python statement coverage | 90.37% (85% floor) |
+| Authored evaluation pairs | 14 |
+| Intended-response rubric wins | 14/14 |
+| Prompt requirement checks | 14/14 passed |
+| Pairwise annotations validated | 8 |
+| Annotation quality gates | 8/8 passing |
+| Chosen/rejected records exported | 7/7 non-ties |
 | Prompts with conflicting labels | 0 |
 
 The cases are intentionally small, deterministic, and checked in. The results

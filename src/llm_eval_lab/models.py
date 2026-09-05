@@ -5,6 +5,18 @@ from typing import Literal
 
 Preference = Literal["A", "B", "tie"]
 
+# Dimensions commonly used when labeling writing / RLHF preferences.
+WRITING_QUALITY_DIMENSIONS: tuple[str, ...] = (
+    "helpfulness",
+    "correctness",
+    "instruction_following",
+    "clarity",
+    "structure",
+    "tone",
+    "safety",
+    "completeness",
+)
+
 
 @dataclass(frozen=True)
 class EvaluationResult:
@@ -24,8 +36,14 @@ class PairwiseAnnotation:
     response_b: str
     preference: Preference
     rationale: str
-    dimensions: tuple[str, ...] = ("helpfulness", "correctness", "clarity", "safety")
+    dimensions: tuple[str, ...] = (
+        "helpfulness",
+        "correctness",
+        "clarity",
+        "safety",
+    )
     reviewer: str = "reviewer-1"
+    confidence: float = 1.0
 
     def __post_init__(self) -> None:
         if self.preference not in {"A", "B", "tie"}:
@@ -38,6 +56,10 @@ class PairwiseAnnotation:
             raise ValueError("both candidate responses are required")
         if not self.rationale.strip():
             raise ValueError("annotation rationale is required")
+        if not self.dimensions:
+            raise ValueError("at least one evaluation dimension is required")
+        if not 0.0 <= self.confidence <= 1.0:
+            raise ValueError("confidence must be between 0 and 1")
 
 
 @dataclass(frozen=True)

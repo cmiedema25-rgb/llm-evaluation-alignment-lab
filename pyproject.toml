@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-evaluation-alignment-lab"
-version = "1.0.0"
-description = "Deterministic LLM evaluation, prompt regression, and preference-data tooling"
+version = "1.1.0"
+description = "Deterministic LLM evaluation, prompt regression, preference labeling, and writing-quality gates"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}

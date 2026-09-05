@@ -1,21 +1,37 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "passed": true,
   "summary": {
-    "evaluation_cases": 10,
-    "rubric_preference_wins": 10,
+    "evaluation_cases": 14,
+    "rubric_preference_wins": 14,
     "rubric_preference_win_rate": 1.0,
-    "prompt_checks_passed": 10,
+    "prompt_checks_passed": 14,
     "prompt_check_pass_rate": 1.0,
-    "preference_annotations": 3,
-    "exported_preference_records": 3,
+    "preference_annotations": 8,
+    "exported_preference_records": 7,
+    "non_tie_annotations": 7,
+    "annotation_quality_passing": 8,
     "reviewer_disagreement_prompts": 0
   },
   "preference_summary": {
-    "total": 3,
-    "a_win_rate": 1.0,
+    "total": 8,
+    "a_win_rate": 0.875,
     "b_win_rate": 0.0,
-    "tie_rate": 0.0
+    "tie_rate": 0.125
+  },
+  "annotation_quality": {
+    "pass_rate": 1.0,
+    "dimension_frequency": {
+      "clarity": 7,
+      "completeness": 5,
+      "correctness": 4,
+      "helpfulness": 4,
+      "instruction_following": 5,
+      "safety": 1,
+      "structure": 1,
+      "tone": 3
+    },
+    "flagged": 0
   },
   "results": [
     {
@@ -107,7 +123,61 @@
       "aggregate_margin": 0.2537,
       "prompt_check_passed": true,
       "prompt_check_failures": []
+    },
+    {
+      "case_id": "rewrite-jargon",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.7083,
+      "rejected_aggregate": 0.6167,
+      "aggregate_margin": 0.0916,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "refusal-auth",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.725,
+      "rejected_aggregate": 0.575,
+      "aggregate_margin": 0.15,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "bullet-rater-checklist",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.65,
+      "rejected_aggregate": 0.5,
+      "aggregate_margin": 0.15,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
+    },
+    {
+      "case_id": "release-note",
+      "rubric_preference_correct": true,
+      "preferred_aggregate": 0.7667,
+      "rejected_aggregate": 0.5,
+      "aggregate_margin": 0.2667,
+      "prompt_check_passed": true,
+      "prompt_check_failures": []
     }
   ],
-  "limitations": "This deterministic benchmark uses ten authored regression cases and three sample annotations. It validates the evaluation pipeline, not the quality of a production model, human-label agreement at scale, or customer ROI."
+  "sample_export_with_metadata": [
+    {
+      "prompt": "Explain why deterministic tests matter for AI applications.",
+      "chosen": "Deterministic tests make regressions visible because the same input is checked against the same behavioral expectations on every run.",
+      "rejected": "AI changes a lot, so testing is useful.",
+      "prompt_id": "p1",
+      "rationale": "Prefer A: it names the mechanism (same input \u2192 same expectations) and explains why regressions become visible. B is vague ('testing is useful') and never mentions determinism or repeatability.",
+      "dimensions": [
+        "helpfulness",
+        "correctness",
+        "clarity",
+        "completeness"
+      ],
+      "reviewer": "reviewer-1",
+      "confidence": 0.95,
+      "preference": "A"
+    }
+  ],
+  "limitations": "This deterministic benchmark uses 14 authored regression cases and 8 sample preference annotations. It validates the evaluation and labeling pipeline (rubric ranking, prompt checks, export shape, rationale quality gates), not production model quality, large-scale inter-annotator agreement, or customer ROI."
 }

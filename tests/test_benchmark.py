@@ -16,16 +16,21 @@ def test_retained_benchmark_produces_expected_summary() -> None:
     )
 
     assert report["passed"] is True
+    assert report["schema_version"] == "1.1"
     assert report["summary"] == {
-        "evaluation_cases": 10,
-        "rubric_preference_wins": 10,
+        "evaluation_cases": 14,
+        "rubric_preference_wins": 14,
         "rubric_preference_win_rate": 1.0,
-        "prompt_checks_passed": 10,
+        "prompt_checks_passed": 14,
         "prompt_check_pass_rate": 1.0,
-        "preference_annotations": 3,
-        "exported_preference_records": 3,
+        "preference_annotations": 8,
+        "exported_preference_records": 7,
+        "non_tie_annotations": 7,
+        "annotation_quality_passing": 8,
         "reviewer_disagreement_prompts": 0,
     }
+    assert report["preference_summary"]["tie_rate"] == 0.125
+    assert report["annotation_quality"]["flagged"] == 0
 
 
 def test_benchmark_cli_writes_machine_readable_report(tmp_path: Path) -> None:
@@ -44,6 +49,15 @@ def test_benchmark_cli_writes_machine_readable_report(tmp_path: Path) -> None:
 
     assert exit_code == 0
     assert json.loads(report_path.read_text(encoding="utf-8"))["passed"] is True
+
+
+def test_export_and_quality_cli(tmp_path: Path) -> None:
+    out = tmp_path / "prefs.jsonl"
+    assert main(["export-preferences", "data/sample_preferences.jsonl", "--output", str(out)]) == 0
+    lines = out.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) == 7
+    assert "chosen" in json.loads(lines[0])
+    assert main(["check-annotations", "data/sample_preferences.jsonl"]) == 0
 
 
 def test_benchmark_loader_reports_invalid_line(tmp_path: Path) -> None:

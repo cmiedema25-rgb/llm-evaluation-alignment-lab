@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .models import PromptCase
 from .preferences import (
+    annotation_quality_report,
     disagreement_by_prompt,
     export_preference_records,
     load_jsonl,
@@ -109,20 +110,25 @@ def run_benchmark(
 
     annotations = load_jsonl(str(preferences_path))
     exported = export_preference_records(annotations)
+    exported_with_meta = export_preference_records(annotations, include_metadata=True)
     disagreements = disagreement_by_prompt(annotations)
+    quality = annotation_quality_report(annotations)
+    non_ties = sum(1 for item in annotations if item.preference != "tie")
     rubric_wins = sum(bool(item["rubric_preference_correct"]) for item in results)
     prompt_passes = sum(bool(item["prompt_check_passed"]) for item in results)
     disagreement_count = sum(disagreements.values())
     case_count = len(results)
+    quality_pass = int(quality["flagged"]) == 0
     passed = (
         rubric_wins == case_count
         and prompt_passes == case_count
-        and len(exported) == len(annotations)
+        and len(exported) == non_ties
         and disagreement_count == 0
+        and quality_pass
     )
 
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "passed": passed,
         "summary": {
             "evaluation_cases": case_count,
@@ -132,14 +138,24 @@ def run_benchmark(
             "prompt_check_pass_rate": round(prompt_passes / case_count, 4),
             "preference_annotations": len(annotations),
             "exported_preference_records": len(exported),
+            "non_tie_annotations": non_ties,
+            "annotation_quality_passing": int(quality["passing"]),
             "reviewer_disagreement_prompts": disagreement_count,
         },
         "preference_summary": preference_summary(annotations),
+        "annotation_quality": {
+            "pass_rate": quality["pass_rate"],
+            "dimension_frequency": quality["dimension_frequency"],
+            "flagged": quality["flagged"],
+        },
         "results": results,
+        "sample_export_with_metadata": exported_with_meta[:1],
         "limitations": (
-            "This deterministic benchmark uses ten authored regression cases and three "
-            "sample annotations. It validates the evaluation pipeline, not the quality of "
-            "a production model, human-label agreement at scale, or customer ROI."
+            f"This deterministic benchmark uses {case_count} authored regression cases and "
+            f"{len(annotations)} sample preference annotations. It validates the evaluation "
+            "and labeling pipeline (rubric ranking, prompt checks, export shape, rationale "
+            "quality gates), not production model quality, large-scale inter-annotator "
+            "agreement, or customer ROI."
         ),
     }
 
